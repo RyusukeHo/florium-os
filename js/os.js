@@ -10,7 +10,11 @@ export class OS {
             username: '',
             password: ''
         };
-        this.loadScreen('setup');
+        const img = new Image();
+        img.src = '/florium-os/assets/setup-background.jpg';
+        img.onload = () => {
+            this.loadScreen('setup');
+        };
     }
 
     async loadScreen(screenName) {

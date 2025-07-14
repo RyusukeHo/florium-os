@@ -18,11 +18,33 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
         rel="stylesheet">
+    <style>
+        #screen-container.booting::after {
+            content: '_';
+            animation: blink 0.5s infinite step-end;
+            color: white;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <!-- 動的に読み込まれる画面コンテナ -->
-    <div id="screen-container"></div>
+    <div id="screen-container" class="booting"></div>
 
     <script type="module" src="js/main.js"></script>
 </body>
