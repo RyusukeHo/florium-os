@@ -19,9 +19,9 @@ export class WindowManager {
       <div class="window-header">
         <span class="window-title">${config.title || 'ウィンドウ'}</span>
         <div class="window-controls">
-          <div class="window-control close" onclick="window.os.closeWindow(${windowId})"></div>
-          <div class="window-control minimize"></div>
-          <div class="window-control maximize"></div>
+          <div class="window-control minimize"><span class="material-symbols-rounded">remove</span></div>
+          <div class="window-control maximize"><span class="material-symbols-rounded">stop</span></div>
+          <div class="window-control close" onclick="window.os.closeWindow(${windowId})"><span class="material-symbols-rounded">close</span></div>
         </div>
       </div>
       <div class="window-content" id="content-${windowId}">
@@ -88,7 +88,7 @@ export class WindowManager {
             startY = e.clientY;
             startLeft = parseInt(windowElement.style.left) || 0;
             startTop = parseInt(windowElement.style.top) || 0;
-            windowElement.style.zIndex = 9999;
+            windowElement.style.zIndex = 999;
 
             // 選択を無効化
             e.preventDefault();

@@ -1,4 +1,7 @@
 #desktop {
-    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    background: rgb(126, 184, 112);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
 }

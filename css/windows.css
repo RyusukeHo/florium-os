@@ -1,7 +1,7 @@
 /* ウィンドウシステム */
 .window {
     position: absolute;
-    background: white;
+    background: transparent;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     min-width: 200px;
@@ -101,19 +101,20 @@
 /* ウィンドウヘッダー */
 .window-header {
     height: 40px;
-    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
     border-radius: 8px 8px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 0 0 15px;
     cursor: move;
     user-select: none;
     border-bottom: 1px solid #dee2e6;
 }
 
 .window-header:active {
-    background: linear-gradient(180deg, #e9ecef 0%, #dee2e6 100%);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .window-title {
@@ -125,44 +126,41 @@
 /* ウィンドウコントロール */
 .window-controls {
     display: flex;
-    gap: 8px;
+    flex-direction: row;
+    align-items: stretch;
 }
 
 .window-control {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+    width: 50px;
+    height: 40px;
     cursor: pointer;
     transition: all 0.2s ease;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        color: rgba(0, 0, 0, 0.5);
+    }
 }
 
 .window-control:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.close {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-}
-
-.minimize {
-    background: linear-gradient(135deg, #ffd93d 0%, #ffc107 100%);
-}
-
-.maximize {
-    background: linear-gradient(135deg, #4ecdc4 0%, #26a69a 100%);
+    span {
+        color: white;
+    }
 }
 
 .close:hover {
-    background: linear-gradient(135deg, #ff5252 0%, #f44336 100%);
+    background: linear-gradient(135deg, #ff8181 0%, #eb5959 100%);
 }
 
 .minimize:hover {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    background: linear-gradient(135deg, #fce172 0%, #ffde7b 100%);
 }
 
 .maximize:hover {
-    background: linear-gradient(135deg, #26a69a 0%, #009688 100%);
+    background: linear-gradient(135deg, #81dad4 0%, #63cec3 100%);
 }
 
 /* ウィンドウコンテンツ */
