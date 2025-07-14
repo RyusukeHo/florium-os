@@ -1,0 +1,238 @@
+<div class="notepad-app">
+    <div class="notepad-toolbar">
+        <div class="toolbar-group">
+            <button class="notepad-btn" onclick="newNote()" title="新規作成">
+                📄 新規
+            </button>
+            <button class="notepad-btn" onclick="saveNote()" title="保存">
+                💾 保存
+            </button>
+            <button class="notepad-btn" onclick="loadNote()" title="読み込み">
+                📂 開く
+            </button>
+        </div>
+        <div class="toolbar-group">
+            <button class="notepad-btn" onclick="clearNote()" title="クリア">
+                🗑️ クリア
+            </button>
+            <button class="notepad-btn" onclick="toggleWordWrap()" title="折り返し">
+                📝 折り返し
+            </button>
+        </div>
+        <div class="toolbar-info">
+            <span id="char-count">0 文字</span>
+        </div>
+    </div>
+
+    <textarea id="notepad-content" class="notepad-textarea"
+        placeholder="メモを入力してください...&#10;&#10;• Ctrl+S で保存&#10;• 自動で文字数カウント&#10;• 内容は自動保存されます"
+        oninput="updateCharCount()"></textarea>
+
+    <div class="notepad-status">
+        <span id="save-status">未保存</span>
+        <span id="line-info">行: 1, 列: 1</span>
+    </div>
+</div>
+
+<style>
+    .notepad-app {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+    }
+
+    .notepad-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .toolbar-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .notepad-btn {
+        padding: 6px 12px;
+        border: 1px solid #ced4da;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .notepad-btn:hover {
+        background: #e9ecef;
+        border-color: #adb5bd;
+    }
+
+    .notepad-btn:active {
+        background: #dee2e6;
+    }
+
+    .toolbar-info {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    .notepad-textarea {
+        flex: 1;
+        border: none;
+        padding: 15px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        resize: none;
+        outline: none;
+        background: #ffffff;
+    }
+
+    .notepad-textarea:focus {
+        background: #fdfdfd;
+    }
+
+    .notepad-status {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 12px;
+        background: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        font-size: 11px;
+        color: #6c757d;
+    }
+
+    #save-status.saved {
+        color: #28a745;
+    }
+
+    #save-status.unsaved {
+        color: #dc3545;
+    }
+</style>
+
+<script>
+    let notepadContent = '';
+    let isWordWrapEnabled = true;
+
+    // 文字数カウント更新
+    function updateCharCount() {
+        const textarea = document.getElementById('notepad-content');
+        const charCount = document.getElementById('char-count');
+        const saveStatus = document.getElementById('save-status');
+        const lineInfo = document.getElementById('line-info');
+
+        if (textarea && charCount) {
+            charCount.textContent = `${textarea.value.length} 文字`;
+        }
+
+        if (saveStatus) {
+            saveStatus.textContent = '未保存';
+            saveStatus.className = 'unsaved';
+        }
+
+        // カーソル位置情報
+        if (textarea && lineInfo) {
+            const lines = textarea.value.substr(0, textarea.selectionStart).split('\n');
+            const currentLine = lines.length;
+            const currentCol = lines[lines.length - 1].length + 1;
+            lineInfo.textContent = `行: ${currentLine}, 列: ${currentCol}`;
+        }
+    }
+
+    // 新規作成
+    function newNote() {
+        if (confirm('現在の内容をクリアしますか？')) {
+            document.getElementById('notepad-content').value = '';
+            updateCharCount();
+        }
+    }
+
+    // メモ保存
+    function saveNote() {
+        const content = document.getElementById('notepad-content');
+        const saveStatus = document.getElementById('save-status');
+
+        if (content) {
+            localStorage.setItem('notepad-content', content.value);
+            localStorage.setItem('notepad-saved-time', new Date().toLocaleString());
+
+            if (saveStatus) {
+                saveStatus.textContent = '保存済み';
+                saveStatus.className = 'saved';
+            }
+
+            // 一時的に保存メッセージを表示
+            const originalText = saveStatus.textContent;
+            saveStatus.textContent = '保存しました！';
+            setTimeout(() => {
+                saveStatus.textContent = originalText;
+            }, 2000);
+        }
+    }
+
+    // メモ読み込み
+    function loadNote() {
+        const savedContent = localStorage.getItem('notepad-content');
+        const savedTime = localStorage.getItem('notepad-saved-time');
+        const content = document.getElementById('notepad-content');
+
+        if (savedContent && content) {
+            content.value = savedContent;
+            updateCharCount();
+
+            if (savedTime) {
+                alert(`メモを読み込みました\n保存日時: ${savedTime}`);
+            } else {
+                alert('メモを読み込みました');
+            }
+        } else {
+            alert('保存されたメモがありません');
+        }
+    }
+
+    // クリア
+    function clearNote() {
+        if (confirm('メモをクリアしますか？')) {
+            document.getElementById('notepad-content').value = '';
+            updateCharCount();
+        }
+    }
+
+    // 折り返し切り替え
+    function toggleWordWrap() {
+        const textarea = document.getElementById('notepad-content');
+        if (textarea) {
+            isWordWrapEnabled = !isWordWrapEnabled;
+            textarea.style.whiteSpace = isWordWrapEnabled ? 'pre-wrap' : 'pre';
+            textarea.style.overflowX = isWordWrapEnabled ? 'hidden' : 'auto';
+        }
+    }
+
+    // Ctrl+S で保存
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            saveNote();
+        }
+    });
+
+    // 初期化
+    setTimeout(() => {
+        updateCharCount();
+
+        // 自動保存された内容があれば読み込み
+        const savedContent = localStorage.getItem('notepad-content');
+        const textarea = document.getElementById('notepad-content');
+        if (savedContent && textarea && !textarea.value) {
+            textarea.value = savedContent;
+            updateCharCount();
+        }
+    }, 100);
+</script>

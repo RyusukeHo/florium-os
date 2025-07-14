@@ -1,0 +1,345 @@
+<div class="systeminfo-app">
+    <div class="systeminfo-header">
+        <h2>🖥️ システム情報</h2>
+    </div>
+
+    <div class="systeminfo-content">
+        <div class="info-section">
+            <h3>💻 システム</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">OS名:</span>
+                    <span class="info-value">疑似OS v1.0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">バージョン:</span>
+                    <span class="info-value">Build 2024.01.15</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">アーキテクチャ:</span>
+                    <span class="info-value" id="architecture">x64</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">起動時間:</span>
+                    <span class="info-value" id="uptime">計算中...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>🌐 ブラウザ情報</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">ブラウザ:</span>
+                    <span class="info-value" id="browser-name">取得中...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">バージョン:</span>
+                    <span class="info-value" id="browser-version">取得中...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">言語:</span>
+                    <span class="info-value" id="browser-lang">取得中...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">画面解像度:</span>
+                    <span class="info-value" id="screen-resolution">取得中...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3">💾 メモリ使用量</h3>
+                <div class="memory-info">
+                    <div class="memory-bar">
+                        <div class="memory-used" style="width: 65%"></div>
+                    </div>
+                    <div class="memory-text">
+                        <span>使用中: 6.5GB / 10GB (65%)</span>
+                    </div>
+                </div>
+        </div>
+
+        <div class="info-section">
+            <h3">📊 実行中のプロセス</h3>
+                <div class="process-list" id="process-list">
+                    <!-- 動的に生成 -->
+                </div>
+        </div>
+
+        <div class="info-section">
+            <h3">🔧 デバッグ情報</h3>
+                <div class="debug-info">
+                    <button class="debug-btn" onclick="collectDebugInfo()">診断情報を収集</button>
+                    <button class="debug-btn" onclick="exportSystemInfo()">情報をエクスポート</button>
+                    <button class="debug-btn" onclick="clearCache()">キャッシュをクリア</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .systeminfo-app {
+        height: 100%;
+        padding: 20px;
+        background: #f8f9fa;
+        overflow-y: auto;
+    }
+
+    .systeminfo-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .systeminfo-header h2 {
+        color: #495057;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .info-section {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-section h3 {
+        color: #343a40;
+        font-size: 18px;
+        margin: 0 0 15px 0;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 8px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #6c757d;
+    }
+
+    .info-value {
+        color: #343a40;
+        font-family: monospace;
+    }
+
+    .memory-info {
+        margin-top: 10px;
+    }
+
+    .memory-bar {
+        width: 100%;
+        height: 20px;
+        background: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 8px;
+    }
+
+    .memory-used {
+        height: 100%;
+        background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+        transition: width 0.3s ease;
+    }
+
+    .memory-text {
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    .process-list {
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+
+    .process-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+        border-bottom: 1px solid #f8f9fa;
+        font-size: 14px;
+    }
+
+    .process-item:last-child {
+        border-bottom: none;
+    }
+
+    .process-name {
+        font-weight: 500;
+    }
+
+    .process-memory {
+        color: #6c757d;
+        font-family: monospace;
+    }
+
+    .debug-info {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .debug-btn {
+        padding: 8px 16px;
+        border: 1px solid #007bff;
+        background: white;
+        color: #007bff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .debug-btn:hover {
+        background: #007bff;
+        color: white;
+    }
+</style>
+
+<script>
+    let startTime = Date.now();
+
+    function updateSystemInfo() {
+        // ブラウザ情報
+        const userAgent = navigator.userAgent;
+        let browserName = 'Unknown';
+        let browserVersion = 'Unknown';
+
+        if (userAgent.includes('Chrome')) {
+            browserName = 'Google Chrome';
+            browserVersion = userAgent.match(/Chrome\/([0-9.]+)/)?.[1] || 'Unknown';
+        } else if (userAgent.includes('Firefox')) {
+            browserName = 'Mozilla Firefox';
+            browserVersion = userAgent.match(/Firefox\/([0-9.]+)/)?.[1] || 'Unknown';
+        } else if (userAgent.includes('Safari')) {
+            browserName = 'Safari';
+            browserVersion = userAgent.match(/Safari\/([0-9.]+)/)?.[1] || 'Unknown';
+        }
+
+        document.getElementById('browser-name').textContent = browserName;
+        document.getElementById('browser-version').textContent = browserVersion;
+        document.getElementById('browser-lang').textContent = navigator.language;
+        document.getElementById('screen-resolution').textContent = `${screen.width} x ${screen.height}`;
+
+        // アーキテクチャ
+        const platform = navigator.platform;
+        document.getElementById('architecture').textContent = platform.includes('64') ? 'x64' : 'x86';
+    }
+
+    function updateUptime() {
+        const uptime = Date.now() - startTime;
+        const seconds = Math.floor(uptime / 1000) % 60;
+        const minutes = Math.floor(uptime / (1000 * 60)) % 60;
+        const hours = Math.floor(uptime / (1000 * 60 * 60));
+
+        document.getElementById('uptime').textContent = `${hours}時間 ${minutes}分 ${seconds}秒`;
+    }
+
+    function updateProcessList() {
+        const processList = document.getElementById('process-list');
+        const processes = [
+            { name: '疑似OS カーネル', memory: '128 MB' },
+            { name: 'ウィンドウマネージャー', memory: '64 MB' },
+            { name: 'デスクトップ', memory: '32 MB' },
+            { name: 'タスクバー', memory: '16 MB' }
+        ];
+
+        // 実行中のアプリを追加
+        if (window.os && window.os.appManager) {
+            const runningApps = window.os.appManager.getRunningApps();
+            runningApps.forEach(app => {
+                processes.push({
+                    name: app.config.title,
+                    memory: Math.floor(Math.random() * 50 + 10) + ' MB'
+                });
+            });
+        }
+
+        processList.innerHTML = processes.map(process => `
+    <div class="process-item">
+      <span class="process-name">${process.name}</span>
+      <span class="process-memory">${process.memory}</span>
+    </div>
+  `).join('');
+    }
+
+    function collectDebugInfo() {
+        const debugInfo = {
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            url: window.location.href,
+            viewport: `${window.innerWidth}x${window.innerHeight}`,
+            runningApps: window.os ? window.os.appManager.getRunningApps().length : 0
+        };
+
+        console.log('Debug Info:', debugInfo);
+        alert('診断情報をコンソールに出力しました');
+    }
+
+    function exportSystemInfo() {
+        const systemInfo = {
+            os: '疑似OS v1.0',
+            browser: document.getElementById('browser-name').textContent,
+            version: document.getElementById('browser-version').textContent,
+            resolution: document.getElementById('screen-resolution').textContent,
+            uptime: document.getElementById('uptime').textContent,
+            timestamp: new Date().toISOString()
+        };
+
+        const dataStr = JSON.stringify(systemInfo, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'system-info.json';
+        link.click();
+
+        URL.revokeObjectURL(url);
+    }
+
+    function clearCache() {
+        if (confirm('キャッシュをクリアしますか？\n（保存されたメモなどは削除されません）')) {
+            // localStorage の一部をクリア（重要なデータは保持）
+            const importantKeys = ['notepad-content', 'notepad-saved-time'];
+            const allKeys = Object.keys(localStorage);
+
+            allKeys.forEach(key => {
+                if (!importantKeys.includes(key)) {
+                    localStorage.removeItem(key);
+                }
+            });
+
+            alert('キャッシュをクリアしました');
+        }
+    }
+
+    // 初期化と定期更新
+    setTimeout(() => {
+        updateSystemInfo();
+        updateUptime();
+        updateProcessList();
+
+        // 1秒ごとに更新
+        setInterval(() => {
+            updateUptime();
+            updateProcessList();
+        }, 1000);
+    }, 100);
+</script>

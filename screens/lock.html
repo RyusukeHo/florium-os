@@ -1,0 +1,33 @@
+<div id="lock" class="screen active">
+    <div class="lock-container">
+        <div class="lock-avatar">👤</div>
+        <h1 id="welcome-message">[ユーザー名]</h1>
+        <div class="lock-form">
+            <input type="password" id="lock-password" placeholder="パスワードを入力" maxlength="50">
+            <button onclick="unlock()" class="unlock-btn">ログイン</button>
+        </div>
+        <div class="lock-info">
+            <p id="current-time"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 現在時刻を表示
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ja-JP', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        const timeElement = document.getElementById('current-time');
+        if (timeElement) {
+            timeElement.textContent = timeString;
+        }
+    }
+
+    // 時刻更新を開始
+    updateTime();
+    setInterval(updateTime, 1000);
+</script>

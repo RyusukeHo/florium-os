@@ -1,0 +1,141 @@
+<div id="desktop" class="screen active">
+    <!-- デスクトップアイコン -->
+    <div class="desktop-icons">
+        <div class="desktop-icon" ondblclick="launchApp('calculator')">
+            <div class="desktop-icon-image">🧮</div>
+            <span class="desktop-icon-label">電卓</span>
+        </div>
+        <div class="desktop-icon" ondblclick="launchApp('notepad')">
+            <div class="desktop-icon-image">📝</div>
+            <span class="desktop-icon-label">メモ帳</span>
+        </div>
+        <div class="desktop-icon" ondblclick="launchApp('filemanager')">
+            <div class="desktop-icon-image">📁</div>
+            <span class="desktop-icon-label">ファイル</span>
+        </div>
+        <div class="desktop-icon" ondblclick="launchApp('systeminfo')">
+            <div class="desktop-icon-image">ℹ️</div>
+            <span class="desktop-icon-label">システム情報</span>
+        </div>
+    </div>
+
+    <!-- タスクバー -->
+    <div class="taskbar">
+        <!-- スタートボタン -->
+        <div class="start-button" onclick="toggleStartMenu()">
+            <span>🏠 スタート</span>
+        </div>
+
+        <!-- 実行中のアプリ表示エリア -->
+        <div class="running-apps" id="running-apps">
+            <!-- 動的に追加される -->
+        </div>
+
+        <!-- システム情報 -->
+        <div class="system-tray">
+            <span id="taskbar-time"></span>
+            <div class="system-icon" onclick="launchApp('taskmanager')">📊</div>
+            <div class="system-icon" onclick="lockScreen()">🔒</div>
+        </div>
+    </div>
+
+    <!-- スタートメニュー -->
+    <div id="start-menu" class="start-menu hidden">
+        <div class="start-menu-header">
+            <span id="start-user-name">ユーザー</span>
+        </div>
+        <div class="start-menu-items">
+            <div class="start-menu-item" onclick="launchApp('calculator')">
+                <span class="start-menu-icon">🧮</span>
+                <span>電卓</span>
+            </div>
+            <div class="start-menu-item" onclick="launchApp('notepad')">
+                <span class="start-menu-icon">📝</span>
+                <span>メモ帳</span>
+            </div>
+            <div class="start-menu-item" onclick="launchApp('filemanager')">
+                <span class="start-menu-icon">📁</span>
+                <span>ファイルマネージャー</span>
+            </div>
+            <div class="start-menu-separator"></div>
+            <div class="start-menu-item" onclick="launchApp('settings')">
+                <span class="start-menu-icon">⚙️</span>
+                <span>設定</span>
+            </div>
+            <div class="start-menu-item" onclick="lockScreen()">
+                <span class="start-menu-icon">🔒</span>
+                <span>ロック</span>
+            </div>
+            <div class="start-menu-item" onclick="shutdownSystem()">
+                <span class="start-menu-icon">🔴</span>
+                <span>シャットダウン</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // タスクバーの時刻表示
+    function updateTaskbarTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ja-JP', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        const timeElement = document.getElementById('taskbar-time');
+        if (timeElement) {
+            timeElement.textContent = timeString;
+        }
+    }
+
+    // スタートメニューの表示/非表示
+    function toggleStartMenu() {
+        const startMenu = document.getElementById('start-menu');
+        if (startMenu) {
+            startMenu.classList.toggle('hidden');
+        }
+    }
+
+    // システム情報表示
+    function showSystemInfo() {
+        launchApp('systeminfo');
+    }
+
+    // タスクマネージャー表示
+    function showTaskManager() {
+        launchApp('taskmanager');
+    }
+
+    // 設定表示
+    function showSettings() {
+        launchApp('settings');
+    }
+
+    // ロック画面に戻る
+    function lockScreen() {
+        if (window.os) {
+            window.os.switchScreen('lock');
+        }
+    }
+
+    // シャットダウン
+    function shutdownSystem() {
+        if (confirm('システムをシャットダウンしますか？')) {
+            window.location.reload();
+        }
+    }
+
+    // スタートメニューを外クリックで閉じる
+    document.addEventListener('click', function (e) {
+        const startMenu = document.getElementById('start-menu');
+        const startButton = document.querySelector('.start-button');
+
+        if (startMenu && !startMenu.contains(e.target) && !startButton.contains(e.target)) {
+            startMenu.classList.add('hidden');
+        }
+    });
+
+    // 時刻更新を開始
+    updateTaskbarTime();
+    setInterval(updateTaskbarTime, 1000);
+</script>

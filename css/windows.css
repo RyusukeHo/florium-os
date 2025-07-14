@@ -1,0 +1,192 @@
+/* ウィンドウシステム */
+.window {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    min-width: 200px;
+    min-height: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.window:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* リサイズハンドル */
+.window-resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 10;
+}
+
+/* 角のハンドル */
+.resize-se {
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    cursor: se-resize;
+}
+
+.resize-nw {
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    cursor: nw-resize;
+}
+
+.resize-ne {
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    cursor: ne-resize;
+}
+
+.resize-sw {
+    bottom: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    cursor: sw-resize;
+}
+
+/* 辺のハンドル */
+.resize-e {
+    top: 15px;
+    right: 0;
+    width: 5px;
+    height: calc(100% - 30px);
+    cursor: e-resize;
+}
+
+.resize-w {
+    top: 15px;
+    left: 0;
+    width: 5px;
+    height: calc(100% - 30px);
+    cursor: w-resize;
+}
+
+.resize-s {
+    bottom: 0;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 5px;
+    cursor: s-resize;
+}
+
+.resize-n {
+    top: 0;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 5px;
+    cursor: n-resize;
+}
+
+/* 視覚的なリサイズ表示 */
+.resize-se::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, transparent 45%, #aaa 45%, #aaa 55%, transparent 55%);
+}
+
+/* ウィンドウヘッダー */
+.window-header {
+    height: 40px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.window-header:active {
+    background: linear-gradient(180deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.window-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* ウィンドウコントロール */
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-control {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.window-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+}
+
+.minimize {
+    background: linear-gradient(135deg, #ffd93d 0%, #ffc107 100%);
+}
+
+.maximize {
+    background: linear-gradient(135deg, #4ecdc4 0%, #26a69a 100%);
+}
+
+.close:hover {
+    background: linear-gradient(135deg, #ff5252 0%, #f44336 100%);
+}
+
+.minimize:hover {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+}
+
+.maximize:hover {
+    background: linear-gradient(135deg, #26a69a 0%, #009688 100%);
+}
+
+/* ウィンドウコンテンツ */
+.window-content {
+    padding: 20px;
+    height: calc(100% - 40px);
+    overflow: auto;
+    background: white;
+}
+
+/* ウィンドウ内のスクロールバー */
+.window-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

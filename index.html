@@ -1,13 +1,30 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florium OS</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/screens.css">
+    <link rel="stylesheet" href="css/screens/setup.css">
+    <link rel="stylesheet" href="css/screens/lock.css">
+    <link rel="stylesheet" href="css/screens/desktop.css">
+    <link rel="stylesheet" href="css/windows.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 動的に読み込まれる画面コンテナ -->
+    <div id="screen-container"></div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
 </html>

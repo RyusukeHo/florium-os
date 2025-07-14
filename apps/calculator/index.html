@@ -1,0 +1,121 @@
+<div class="calculator-app">
+    <div class="calculator-display" id="calc-display">0</div>
+    <div class="calculator-buttons">
+        <button class="calc-btn clear" onclick="clearCalc()">C</button>
+        <button class="calc-btn operator" onclick="calcInput('/')">/</button>
+        <button class="calc-btn operator" onclick="calcInput('*')">*</button>
+        <button class="calc-btn operator" onclick="calcInput('-')">-</button>
+
+        <button class="calc-btn number" onclick="calcInput('7')">7</button>
+        <button class="calc-btn number" onclick="calcInput('8')">8</button>
+        <button class="calc-btn number" onclick="calcInput('9')">9</button>
+        <button class="calc-btn operator" onclick="calcInput('+')">+</button>
+
+        <button class="calc-btn number" onclick="calcInput('4')">4</button>
+        <button class="calc-btn number" onclick="calcInput('5')">5</button>
+        <button class="calc-btn number" onclick="calcInput('6')">6</button>
+        <button class="calc-btn equals" onclick="calculate()" rowspan="2">=</button>
+
+        <button class="calc-btn number" onclick="calcInput('1')">1</button>
+        <button class="calc-btn number" onclick="calcInput('2')">2</button>
+        <button class="calc-btn number" onclick="calcInput('3')">3</button>
+
+        <button class="calc-btn number zero" onclick="calcInput('0')">0</button>
+        <button class="calc-btn number" onclick="calcInput('.')">.</button>
+    </div>
+</div>
+
+<style>
+    .calculator-app {
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calculator-display {
+        background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+        color: #00ff00;
+        border: 2px solid #00ff00;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        font-size: 24px;
+        text-align: right;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .calculator-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        flex: 1;
+    }
+
+    .calc-btn {
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-height: 50px;
+    }
+
+    .calc-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .calc-btn:active {
+        transform: translateY(0);
+    }
+
+    .calc-btn.number {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        color: white;
+    }
+
+    .calc-btn.number:hover {
+        background: linear-gradient(135deg, #0984e3 0%, #0770c7 100%);
+    }
+
+    .calc-btn.operator {
+        background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+        color: white;
+    }
+
+    .calc-btn.operator:hover {
+        background: linear-gradient(135deg, #e84393 0%, #d63384 100%);
+    }
+
+    .calc-btn.clear {
+        background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+        color: white;
+    }
+
+    .calc-btn.clear:hover {
+        background: linear-gradient(135deg, #d63031 0%, #b91e1e 100%);
+    }
+
+    .calc-btn.equals {
+        background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+        color: white;
+        grid-row: span 2;
+    }
+
+    .calc-btn.equals:hover {
+        background: linear-gradient(135deg, #00a085 0%, #008f72 100%);
+    }
+
+    .calc-btn.zero {
+        grid-column: span 2;
+    }
+</style>

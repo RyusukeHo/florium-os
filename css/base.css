@@ -1,0 +1,64 @@
+/* 基本リセットとベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Noto Sans JP", sans-serif;
+    background: #000;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 基本的なフォームエレメント */
+input,
+button {
+    padding: 10px 20px;
+    margin: 6px;
+    border: none;
+    height: 44px;
+    border-radius: 22px;
+    font-size: 16px;
+    font-family: "Inter", "Noto Sans JP", sans-serif;
+}
+
+button {
+    background: #207d3c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background: #2a8e48;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+
+input {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+input:focus {
+    outline: 2px solid #4b94267c;
+    border: none;
+}
+
+
+/* ユーティリティクラス */
+.hidden {
+    display: none;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
