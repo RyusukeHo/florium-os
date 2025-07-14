@@ -68,7 +68,7 @@
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url("/assets/setup-background.jpg");
+    background-image: url("/florium-os/assets/setup-background.jpg");
     top: -20px;
     bottom: -20px;
     left: -20px;
