@@ -14,6 +14,7 @@ export class OS {
         img.src = '/florium-os/assets/setup-background.jpg';
         img.onload = () => {
             this.loadScreen('setup');
+            document.getElementById('screen-container').classList.remove('booting');
         };
     }
 
